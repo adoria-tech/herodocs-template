@@ -1,0 +1,18 @@
+# Project metadata for this HeroDocs repo
+client: Client Name
+project: Zoho Implementation
+status: active       # active | on_hold | complete
+
+# Apps in use for this project. CIs and Training link to these by id.
+apps:
+  - id: APP-CRM
+    name: Zoho CRM
+
+# Capability areas that group requirements (e.g. Lead intake, Quoting).
+# Written by the requirements skill from the approved solution outline.
+areas: []
+
+# Roles used by User Stories (role), UAT (performed_by),
+# Training and Documentation (audience). "Everyone" is built in.
+roles:
+  - Admin

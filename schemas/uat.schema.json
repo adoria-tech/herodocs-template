@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "User Acceptance Test",
+  "type": "object",
+  "properties": {
+    "id": {"type": "string", "pattern": "^UAT-\\d{3,}$", "description": "e.g. UAT-001"},
+    "title": {"type": "string", "minLength": 1},
+    "origin": {"type": "string", "description": "Recipe ID if this record came from a recipe"},
+    "tags": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "status": {"enum": ["draft", "review", "approved", "declined"]},
+    "module": {"type": "string", "minLength": 1},
+    "stories": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^US-\\d{3,}$", "description": "e.g. US-001"},
+      "uniqueItems": true
+    },
+    "requirements": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^REQ-\\d{3,}$", "description": "e.g. REQ-001"},
+      "uniqueItems": true
+    },
+    "performed_by": {"type": "string", "minLength": 1}
+  },
+  "required": ["id", "title", "status", "module", "performed_by"],
+  "additionalProperties": false,
+  "anyOf": [
+    {
+      "properties": {
+        "stories": {"minItems": 1}
+      },
+      "required": ["stories"]
+    },
+    {
+      "properties": {
+        "requirements": {"minItems": 1}
+      },
+      "required": ["requirements"]
+    }
+  ]
+}

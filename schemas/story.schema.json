@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "User Story",
+  "type": "object",
+  "properties": {
+    "id": {"type": "string", "pattern": "^US-\\d{3,}$", "description": "e.g. US-001"},
+    "title": {"type": "string", "minLength": 1},
+    "origin": {"type": "string", "description": "Recipe ID if this record came from a recipe"},
+    "tags": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "status": {"enum": ["draft", "review", "approved", "declined"]},
+    "role": {"type": "string", "minLength": 1},
+    "module": {"type": "string", "minLength": 1},
+    "requirements": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^REQ-\\d{3,}$", "description": "e.g. REQ-001"},
+      "uniqueItems": true,
+      "minItems": 1
+    }
+  },
+  "required": ["id", "title", "status", "role", "module", "requirements"],
+  "additionalProperties": false
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Training Component",
+  "type": "object",
+  "properties": {
+    "id": {"type": "string", "pattern": "^TRN-\\d{3,}$", "description": "e.g. TRN-001"},
+    "title": {"type": "string", "minLength": 1},
+    "origin": {"type": "string", "description": "Recipe ID if this record came from a recipe"},
+    "tags": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "status": {"enum": ["draft", "review", "approved", "declined"]},
+    "kind": {"enum": ["library", "custom"]},
+    "format": {"enum": ["video", "document", "live_session", "course"]},
+    "audience": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Roles from project.yaml, or [Everyone] on its own"
+    },
+    "url": {"type": "string", "minLength": 1},
+    "stories": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^US-\\d{3,}$", "description": "e.g. US-001"},
+      "uniqueItems": true
+    },
+    "apps": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^APP-[A-Z0-9_]+$", "description": "e.g. APP-CRM"},
+      "uniqueItems": true
+    }
+  },
+  "required": ["id", "title", "status", "kind", "format", "audience"],
+  "additionalProperties": false,
+  "if": {
+    "properties": {
+      "kind": {"const": "library"}
+    },
+    "required": ["kind"]
+  },
+  "then": {"required": ["url"]}
+}

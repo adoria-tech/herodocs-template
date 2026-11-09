@@ -1,0 +1,29 @@
+# Framework manifest: every path the template owns.
+# scripts/sync_framework.py pulls exactly these paths into client repos, and nothing else.
+# Paths ending in / are folders (everything inside them); others are single files.
+# When you add a framework file or folder to the template, add it here in the same change.
+paths:
+  - framework.yaml
+  - CLAUDE.md
+  - FRAMEWORK-DECISIONS.md
+  - README.md
+  - requirements.txt
+  - .gitignore
+  - schemas/
+  - scripts/
+  - templates/
+  - .claude/skills/
+  - .vscode/settings.json
+  - .vscode/tasks.json
+  - .github/workflows/validate.yml
+  - sources/README.md
+  - sources/raw/README.md
+  - requirements/README.md
+  - decisions/README.md
+  - erd/README.md
+  - cis/README.md
+  - ci-groups/README.md
+  - stories/README.md
+  - uat/README.md
+  - training/README.md
+  - docs/README.md

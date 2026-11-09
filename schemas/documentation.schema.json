@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Documentation",
+  "type": "object",
+  "properties": {
+    "id": {"type": "string", "pattern": "^DOC-\\d{3,}$", "description": "e.g. DOC-001"},
+    "title": {"type": "string", "minLength": 1},
+    "origin": {"type": "string", "description": "Recipe ID if this record came from a recipe"},
+    "tags": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "status": {"enum": ["draft", "review", "approved", "declined"]},
+    "doc_type": {"enum": ["user_guide", "admin_guide", "process", "reference"]},
+    "audience": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "Roles from project.yaml, or [Everyone] on its own"
+    },
+    "module": {"type": "string", "minLength": 1},
+    "requirements": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^REQ-\\d{3,}$", "description": "e.g. REQ-001"},
+      "uniqueItems": true
+    },
+    "stories": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^US-\\d{3,}$", "description": "e.g. US-001"},
+      "uniqueItems": true
+    },
+    "training": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^TRN-\\d{3,}$", "description": "e.g. TRN-001"},
+      "uniqueItems": true
+    },
+    "published_url": {"type": "string", "minLength": 1}
+  },
+  "required": ["id", "title", "status", "doc_type", "audience", "module"],
+  "additionalProperties": false
+}

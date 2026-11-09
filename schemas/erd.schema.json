@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Data Model (ERD)",
+  "type": "object",
+  "properties": {
+    "id": {"type": "string", "pattern": "^ENT-\\d{3,}$", "description": "e.g. ENT-001"},
+    "title": {"type": "string", "minLength": 1},
+    "origin": {"type": "string", "description": "Recipe ID if this record came from a recipe"},
+    "tags": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "app": {"type": "string", "pattern": "^APP-[A-Z0-9_]+$", "description": "e.g. APP-CRM"},
+    "module": {"type": "string", "minLength": 1},
+    "module_kind": {"enum": ["standard", "custom"]},
+    "status": {"enum": ["pending", "exists", "flagged", "removed"]},
+    "fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["api_name", "label", "type", "standard", "status"],
+        "properties": {
+          "api_name": {"type": "string", "minLength": 1},
+          "label": {"type": "string", "minLength": 1},
+          "type": {"enum": ["text", "textarea", "number", "decimal", "currency", "date", "datetime", "email", "phone", "url", "picklist", "multiselect", "checkbox", "lookup", "user", "formula", "autonumber", "subform", "other"]},
+          "standard": {"type": "boolean"},
+          "required": {"type": "boolean"},
+          "status": {"enum": ["pending", "exists", "flagged", "removed"]},
+          "values": {
+            "type": "array",
+            "items": {"type": "string", "minLength": 1},
+            "minItems": 1
+          },
+          "lookup_to": {"type": "string", "minLength": 1},
+          "notes": {"type": "string", "minLength": 1}
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "type": {"enum": ["picklist", "multiselect"]}
+              },
+              "required": ["type"]
+            },
+            "then": {"required": ["values"]}
+          },
+          {
+            "if": {
+              "properties": {
+                "type": {"const": "lookup"}
+              },
+              "required": ["type"]
+            },
+            "then": {"required": ["lookup_to"]}
+          }
+        ]
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["id", "title", "app", "module", "module_kind", "status", "fields"],
+  "additionalProperties": false
+}

@@ -1,0 +1,13 @@
+{
+  "yaml.schemas": {
+    "./schemas/project.schema.json": "project.yaml"
+  },
+  "files.insertFinalNewline": true,
+  "editor.insertSpaces": true,
+  "[markdown]": {
+    "editor.tabSize": 2
+  },
+  "[yaml]": {
+    "editor.tabSize": 2
+  }
+}

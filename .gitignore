@@ -1,0 +1,11 @@
+# macOS folder metadata
+.DS_Store
+
+# Local Python environment (each person creates their own)
+.venv/
+
+# Python bytecode cache, created when the scripts run
+__pycache__/
+
+# Throwaway review documents (scripts/trace.py), regenerated on demand
+review/

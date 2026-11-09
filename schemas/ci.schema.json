@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Configuration Item",
+  "type": "object",
+  "properties": {
+    "id": {"type": "string", "pattern": "^CI-\\d{3,}$", "description": "e.g. CI-001"},
+    "title": {"type": "string", "minLength": 1},
+    "origin": {"type": "string", "description": "Recipe ID if this record came from a recipe"},
+    "tags": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "status": {"enum": ["draft", "review", "approved", "declined"]},
+    "ci_type": {"enum": ["module", "field", "layout", "layout_rule", "validation_rule", "workflow_rule", "blueprint", "function", "widget", "web_form", "report", "dashboard", "email_template", "mail_merge_template", "inventory_template", "integration", "other"]},
+    "app": {"type": "string", "pattern": "^APP-[A-Z0-9_]+$", "description": "e.g. APP-CRM"},
+    "module": {"type": "string", "minLength": 1},
+    "api_name": {"type": "string", "minLength": 1},
+    "requirements": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^REQ-\\d{3,}$", "description": "e.g. REQ-001"},
+      "uniqueItems": true
+    },
+    "stories": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^US-\\d{3,}$", "description": "e.g. US-001"},
+      "uniqueItems": true
+    },
+    "decisions": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^DD-\\d{3,}$", "description": "e.g. DD-001"},
+      "uniqueItems": true
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {"type": "string", "pattern": "^CI-\\d{3,}$", "description": "e.g. CI-001"},
+      "uniqueItems": true
+    },
+    "group": {"type": "string", "pattern": "^CG-\\d{3,}$", "description": "e.g. CG-001"},
+    "playbook": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*@\\d+$", "description": "Hero playbook followed, e.g. quoting-transactional@3"},
+    "deploy_status": {"enum": ["not_started", "built", "deployed"]},
+    "clickup_tasks": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true
+    }
+  },
+  "required": ["id", "title", "status", "ci_type", "app", "module", "deploy_status"],
+  "additionalProperties": false
+}

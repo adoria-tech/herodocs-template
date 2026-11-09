@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HeroDocs project.yaml",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["client", "project", "status", "apps", "roles"],
+  "properties": {
+    "client": {"type": "string", "minLength": 1},
+    "project": {"type": "string", "minLength": 1},
+    "status": {"enum": ["active", "on_hold", "complete"]},
+    "apps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^APP-[A-Z0-9_]+$", "description": "e.g. APP-CRM"},
+          "name": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "areas": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1},
+      "description": "Capability areas, written by the requirements skill from the approved outline"
+    },
+    "roles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "not": {"const": "Everyone"}
+      },
+      "description": "Everyone is built in; don't list it"
+    }
+  }
+}
